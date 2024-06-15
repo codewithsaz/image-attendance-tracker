@@ -80,10 +80,6 @@ const AdminEmployeeProfile = () => {
               </span>
             </p>
             <p className="flex gap-2">
-              <span className="font-semibold">Joining Date:</span>
-              <span>{employeeData.shiftEndTime}</span>
-            </p>
-            <p className="flex gap-2">
               <span className="font-semibold">totalLeaveAvailable:</span>
               <span>{employeeData.totalLeaveAvailable}</span>
             </p>

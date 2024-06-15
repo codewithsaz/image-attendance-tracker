@@ -31,7 +31,7 @@ const Navabar = () => {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
-        <NavbarBrand>
+        <NavbarBrand className="text-xl">
           <h1>Image</h1>
           <p className="font-bold text-inherit">Mobiles</p>
         </NavbarBrand>

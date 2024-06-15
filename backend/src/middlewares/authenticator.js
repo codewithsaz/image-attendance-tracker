@@ -14,6 +14,7 @@ exports.authenticate = async (req, res, next) => {
       const employee = await employeeModel
         .findOne({
           _id: employeeID,
+          employmentStatus: "active",
         })
         .exec();
       if (!employee) throw new Error("No user found");
@@ -42,6 +43,7 @@ exports.verfiyAdminRights = async (req, res, next) => {
       const employee = await employeeModel
         .findOne({
           _id: employeeID,
+          employmentStatus: "active",
         })
         .exec();
       console.log(employee);

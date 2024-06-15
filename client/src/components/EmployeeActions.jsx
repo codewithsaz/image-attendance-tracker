@@ -17,7 +17,6 @@ const EmployeeActions = () => {
     workingStatus,
     breakStatus,
     renderTimer,
-    totalTimeWorked,
   } = useEmployeeStore((state) => ({
     employee: state.employee,
     totalTimeWorked: state.totalTimeWorked,

@@ -9,7 +9,9 @@ exports.loginEmployee = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const employee = await employeeModel.findOne({ email: email }).exec();
+    const employee = await employeeModel
+      .findOne({ email: email, employmentStatus: "active" })
+      .exec();
     if (employee) {
       const verifyEmployee = await verifyPassword(password, employee.password);
       if (verifyEmployee) {
