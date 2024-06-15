@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Navabar from "../components/Navabar";
 import useEmployeeStore from "../store/employeeStore";
 import { getEmployeeData } from "../data/employeeData";
+import LoadingPage from "../pages/LoadingPage";
 
 const MainLayout = () => {
   const [loading, setloading] = useState(true);
@@ -49,7 +50,7 @@ const MainLayout = () => {
   return (
     <>
       {loading ? (
-        <div>Loading</div>
+        <LoadingPage />
       ) : (
         <>
           <Navabar />

@@ -8,13 +8,17 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import LogoutButton from "./Buttons/LogoutButton";
 
 const AdminNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = ["Dashboard", "Attendance", "Leave"];
+  const menuItems = [
+    { name: "Employee Panel", location: "/dashboard" },
+    { name: "Leave Requests", location: "/admin/leave-request" },
+    { name: "New Employee", location: "/admin/new-employee" },
+  ];
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full">
@@ -95,11 +99,34 @@ const AdminNavbar = () => {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link className="w-full" href="" size="lg">
-              {item}
-            </Link>
+            <NavLink
+              to={item.location}
+              className={({ isActive, isPending, isTransitioning }) =>
+                [
+                  isPending ? "pending" : "",
+                  isActive ? "text-orange-500" : "",
+                  isTransitioning ? "transitioning" : "",
+                ].join(" ")
+              }
+            >
+              {item.name}
+            </NavLink>
           </NavbarMenuItem>
         ))}
+        <NavbarItem isActive>
+          <NavLink
+            to="/admin"
+            className={({ isActive, isPending, isTransitioning }) =>
+              [
+                isPending ? "pending" : "",
+                isActive ? "text-orange-500" : "",
+                isTransitioning ? "transitioning" : "",
+              ].join(" ")
+            }
+          >
+            Admin Panel
+          </NavLink>
+        </NavbarItem>
         <LogoutButton />
       </NavbarMenu>
     </Navbar>

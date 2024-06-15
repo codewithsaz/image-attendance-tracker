@@ -16,6 +16,8 @@ AdminRouter.post(
   registerEmployee
 );
 
+AdminRouter.post("/admin/first-employee", registerEmployee);
+
 AdminRouter.get(
   "/admin/delete-employee/:empID",
   verfiyAdminRights,

@@ -8,7 +8,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useEmployeeStore from "../store/employeeStore";
 import LogoutButton from "./Buttons/LogoutButton";
 
@@ -18,7 +18,11 @@ const Navabar = () => {
   }));
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = ["Dashboard", "Attendance", "Leave"];
+  const menuItems = [
+    { name: "Dashboard", location: "/dashboard" },
+    { name: "Attendance", location: "/attendance-history" },
+    { name: "Leaves", location: "/leave-history" },
+  ];
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full">
@@ -104,11 +108,40 @@ const Navabar = () => {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link className="w-full" href="" size="lg">
-              {item}
-            </Link>
+            <NavLink
+              to={item.location}
+              className={({ isActive, isPending, isTransitioning }) =>
+                [
+                  isPending ? "pending" : "",
+                  isActive ? "text-orange-500" : "",
+                  isTransitioning ? "transitioning" : "",
+                ].join(" ")
+              }
+            >
+              {item.name}
+            </NavLink>
           </NavbarMenuItem>
         ))}
+        <>
+          {employee.isAdmin ? (
+            <NavbarItem>
+              <NavLink
+                to="/admin"
+                className={({ isActive, isPending, isTransitioning }) =>
+                  [
+                    isPending ? "pending" : "",
+                    isActive ? "text-orange-500" : "",
+                    isTransitioning ? "transitioning" : "",
+                  ].join(" ")
+                }
+              >
+                Admin Panel
+              </NavLink>
+            </NavbarItem>
+          ) : (
+            <></>
+          )}
+        </>
         <LogoutButton />
       </NavbarMenu>
     </Navbar>

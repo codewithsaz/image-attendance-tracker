@@ -14,6 +14,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
 
   const handleLoginEmployee = async () => {
@@ -27,12 +28,16 @@ const Login = () => {
       setEmployee(data.employee);
 
       navigate("/dashboard", { replace: true });
+    } else {
+      if (data?.message) setErrorMessage(data.message);
     }
   };
   return (
     <div className="w-full h-svh flex justify-center items-center">
       <Card className="w-full max-w-sm">
-        <CardHeader>Login Here</CardHeader>
+        <CardHeader className="font-semibold ">
+          <p className="w-full text-center">Enter Login Credentials</p>
+        </CardHeader>
         <CardBody className="flex flex-col gap-3">
           <Input
             isRequired
@@ -42,6 +47,7 @@ const Login = () => {
             placeholder="Enter your email"
             className=""
             onChange={(e) => {
+              setErrorMessage("");
               setEmail(e.target.value);
             }}
           />
@@ -68,9 +74,17 @@ const Login = () => {
             type={isVisible ? "text" : "password"}
             className=""
             onChange={(e) => {
+              setErrorMessage("");
               setPassword(e.target.value);
             }}
           />
+          <>
+            {errorMessage ? (
+              <p className="text-red-500">{errorMessage}</p>
+            ) : (
+              <></>
+            )}
+          </>
           <Button type="submit" onClick={handleLoginEmployee}>
             Login
           </Button>

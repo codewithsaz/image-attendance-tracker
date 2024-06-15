@@ -25,47 +25,39 @@ export function formatTimeToHoursMinutes(timeString) {
 }
 
 export function calculateTimeDifference(time1, time2) {
-  try {
-    // Use the current date
-    const currentDate = new Date();
+  console.log(time1, time2);
+  function toMinutes(time) {
+    const [timePart, modifier] = time.split(" ");
+    let [hours, minutes, seconds] = timePart.split(":").map(Number);
 
-    // Parse the times into Date objects
-    const timeFormat = "h:mm:ss a"; // Adjust format if needed (e.g., include seconds)
-    const datetime1 = new Date(`${currentDate.toDateString()} ${time1}`);
-    const datetime2 = new Date(`${currentDate.toDateString()} ${time2}`);
-
-    // Extract hours, minutes, and adjust for AM/PM
-    const hours1 =
-      (datetime1.getHours() % 12) +
-      (datetime1.getHours() === 12 ? 0 : datetime1.getHours() < 12 ? 12 : 0);
-    const minutes1 = datetime1.getMinutes();
-    const hours2 =
-      (datetime2.getHours() % 12) +
-      (datetime2.getHours() === 12 ? 0 : datetime2.getHours() < 12 ? 12 : 0);
-    const minutes2 = datetime2.getMinutes();
-
-    // Calculate the time difference in minutes
-    const timeDiffInMinutes = hours2 * 60 + minutes2 - (hours1 * 60 + minutes1);
-
-    // Handle negative time differences (time2 before time1)
-    let timeDiff = timeDiffInMinutes;
-    if (timeDiffInMinutes < 0) {
-      timeDiff += 24 * 60; // Add 24 hours (1440 minutes) to account for crossing midnight
+    if (modifier === "PM" && hours !== 12) {
+      hours += 12;
+    }
+    if (modifier === "AM" && hours === 12) {
+      hours = 0;
     }
 
-    // Calculate hours, minutes, and format the output
-    const hours = Math.floor(timeDiff / 60);
-    const minutes = timeDiff % 60;
-    console.log(
-      `${hours.toString().padStart(2, "0")}:${minutes
-        .toString()
-        .padStart(2, "0")}`
-    );
-    return `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-  } catch (error) {
-    console.error("Invalid time format:", error);
-    return "Invalid time format";
+    return hours * 60 + minutes;
   }
+
+  // Convert both times to minutes
+  const minutes1 = toMinutes(time1);
+  const minutes2 = toMinutes(time2);
+
+  // Calculate the difference in minutes
+  let difference = Math.abs(minutes2 - minutes1);
+
+  // Convert the difference back to HH:mm format
+  const hours = Math.floor(difference / 60);
+  const minutes = difference % 60;
+
+  // Format the result as HH:mm
+  const result = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+    2,
+    "0"
+  )}`;
+
+  console.log(result);
+
+  return result;
 }

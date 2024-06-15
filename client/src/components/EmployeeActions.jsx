@@ -33,9 +33,7 @@ const EmployeeActions = () => {
   return (
     <Card className="w-full flex flex-col justify-center items-center min-h-max lg:h-full gap-4  p-4 text-center sm:min-w-72">
       <CardHeader className="w-full bg-zinc-500text-center">
-        <h1 className=" w-full font-semibold text-xl text-center">
-          Attendance
-        </h1>
+        <h1 className="w-full font-bold text-2xl text-center">Attendance</h1>
       </CardHeader>
       <div className="flex flex-col items-center ">
         <h2>Shift Timings</h2>
@@ -54,7 +52,9 @@ const EmployeeActions = () => {
           <>
             {workingStatus === "checkedOut" ? (
               <div style={{ textAlign: "center" }}>
-                <div className=" font-bold text-7xl">{totalTimeWorked}</div>
+                <div className=" font-bold text-7xl">
+                  {calculateTimeDifference(checkInTime, checkOutTime)}
+                </div>
                 <p>HH:MM</p>
                 <p>Time Worked</p>
               </div>

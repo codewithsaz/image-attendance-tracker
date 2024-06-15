@@ -12,7 +12,6 @@ exports.loginEmployee = async (req, res) => {
     const employee = await employeeModel.findOne({ email: email }).exec();
     if (employee) {
       const verifyEmployee = await verifyPassword(password, employee.password);
-      console.log(verifyEmployee);
       if (verifyEmployee) {
         try {
           const token = await generateToken(employee._id, employee.name);
@@ -47,17 +46,13 @@ exports.loginEmployee = async (req, res) => {
               },
             });
         } catch (error) {
-          console.log(error);
           throw new Error("Token Generation Failed");
         }
       } else {
-        console.log("wrong credentials");
         throw new Error("Wrong credentials");
       }
     } else throw new Error("Employee not found");
   } catch (error) {
-    console.log("response wrong credentials");
-
     res.status(401).json({ success: false, message: error.message });
   }
 };

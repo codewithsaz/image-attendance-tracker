@@ -47,7 +47,7 @@ const AttendaceHistory = () => {
                 isCompact
                 showControls
                 showShadow
-                color="primary"
+                color="warning"
                 page={page}
                 total={pages}
                 onChange={(page) => setPage(page)}

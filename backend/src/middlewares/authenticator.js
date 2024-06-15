@@ -21,10 +21,11 @@ exports.authenticate = async (req, res, next) => {
       next();
     } else throw new Error("No token in request");
   } catch (err) {
-    console.log(err.message);
-    return res
-      .status(401)
-      .json({ success: false, message: "Your not authorized" });
+    return res.status(401).json({
+      success: false,
+      message: "Your not authorized",
+      reason: err.message,
+    });
   }
 };
 
