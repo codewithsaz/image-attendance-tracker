@@ -1,5 +1,6 @@
 exports.formatDateTime = (date = new Date()) => {
   const time = date.toLocaleTimeString("en-US", {
+    timeZone: "Asia/Calcutta",
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
